@@ -1,0 +1,45 @@
+<app-nav></app-nav>
+<div class="container w-75 mt-3">
+    <h1 class="text-center">{{mapName}}</h1>
+    
+    <!--Search controls-->
+    <form class="text-center justify-content-center">
+        <!--Ability-->
+        <div class="mb-3">
+            <input type="radio" class="btn-check" name="ability" id="snake-bite" value="snake-bite" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="snake-bite">Snake Bite</label>
+
+            <input type="radio" class="btn-check" name="ability" id="poison-orb" value="poison-orb" autocomplete="off">
+            <label class="btn btn-outline-primary" for="poison-orb">Poison Orb</label>
+
+            <input type="radio" class="btn-check" name="ability" id="toxic-screen" value="toxic-screen" autocomplete="off">
+            <label class="btn btn-outline-primary" for="toxic-screen">Toxic Screen</label>
+
+            <input type="radio" class="btn-check" name="ability" id="vipers-pit" value="vipers-pit" autocomplete="off">
+            <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
+        </div>
+        <!--Location-->
+        <div class="mb-3">
+            <input type="radio" class="btn-check" name="location" id="ability-locaiton" value="ability-location" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="ability-locaiton">Ability Location</label>
+
+            <input type="radio" class="btn-check" name="location" id="lineup-position" value="lineup-position" autocomplete="off">
+            <label class="btn btn-outline-primary" for="lineup-position">Lineup Position</label>
+        </div>
+
+        <!--Side-->
+        <div class="mb-3">
+            <input type="radio" class="btn-check" name="side" id="attack" value="attack" autocomplete="off" checked>
+            <label class="btn btn-outline-danger" for="attack">Attack</label>
+
+            <input type="radio" class="btn-check" name="side" id="defense" value="defense" autocomplete="off">
+            <label class="btn btn-outline-success" for="defense">Defense</label>
+        </div>
+        <button class="btn btn-info" type="submit">Search</button>
+    </form>
+    
+    <!--Map-->
+    <div class="container mt-3 text-center">
+        <img src="../../../assets/img/{{map}}/{{map}}_map.png" style="width:500px;height:512px;" (click)="testFunction($event)">
+    </div>
+</div>

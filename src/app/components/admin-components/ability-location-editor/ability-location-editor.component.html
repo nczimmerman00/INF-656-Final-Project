@@ -1,0 +1,30 @@
+<app-nav></app-nav>
+<div class="container w-75 mt-3 text-center">
+    <h1 class="text-center">{{mapName}}</h1>
+    <a class="btn btn-primary" href="admin/map/{{map}}/ability-location/create" role="button">Create New Ability Location</a>
+</div>
+
+<!--Map-->
+<div class="container p-0" style="position:relative;top:0;left:0;width:512px">
+    <img src="../../../assets/img/{{map}}/{{map}}_map.png" class="map"> <!--(click)="mapClicked($event)"-->
+    <!--<img src="../../../assets/img/AbilityLocationDot.png" id="dot" [ngStyle]="{'display':clicked ? 'block' : 'none', 'top.px': yCoordinate - 7, 'left.px': xCoordinate - 7, 'width.px': 15, 'height.px': 15, 'position': 'absolute'}">-->
+    <img src="../../../assets/img/AbilityLocationDot.png" style="height:15px;width:15px;top:0px;left:0px;position:absolute;"type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+</div> 
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,52 @@
+<app-nav></app-nav>
+<div class="container w-75 mt-3">
+    <h1 class="text-center">Create Ability Location for {{mapName}}</h1>
+    <form [formGroup]="submissionForm">
+        <div class="mb-3 text-center">
+            <h3>Enter ability position name</h3>
+            <input type="text" id="name" class="form-control" name="name" placeholder="enter a name" formControlName="locationName">
+            <!--Image-->
+            <div>
+                <h3 class="text-center">Upload Image</h3>
+                <input class="form-control" accept="image/png, image/jpeg" type="file" id="formFile" name="file"
+                (change)="handleFileInput($any($event).target.files)">
+            </div>
+            <br>
+            
+            <!--Ability-->
+            <h3>Select Ability</h3>
+            <input type="radio" class="btn-check" name="ability" id="snake-bite" value="snake-bite" autocomplete="off" formControlName="ability">
+            <label class="btn btn-outline-primary" for="snake-bite">Snake Bite</label>
+
+            <input type="radio" class="btn-check" name="ability" id="poison-orb" value="poison-orb" autocomplete="off" formControlName="ability">
+            <label class="btn btn-outline-primary" for="poison-orb">Poison Orb</label>
+
+            <input type="radio" class="btn-check" name="ability" id="toxic-screen" value="toxic-screen" autocomplete="off" formControlName="ability">
+            <label class="btn btn-outline-primary" for="toxic-screen">Toxic Screen</label>
+
+            <input type="radio" class="btn-check" name="ability" id="vipers-pit" value="vipers-pit" autocomplete="off" formControlName="ability">
+            <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
+
+            <!--Location-->
+            <div class="container text-center justify-content-center">
+                <br>
+                <h3 class="text-center">Select a location</h3>
+                <div id="coordinates"> 
+                    <h5>Coordinates</h5>
+                    <p>({{xCoordinate}}, {{yCoordinate}})</p>
+                </div> 
+                <!--Map-->
+                <div class="container p-0" style="position:relative;top:0;left:0;width:512px">
+                    <img src="../../../assets/img/{{map}}/{{map}}_map.png" class="map" (click)="mapClicked($event)">
+                    <img src="../../../assets/img/AbilityLocationDot.png" id="dot" [ngStyle]="{'display':clicked ? 'block' : 'none', 'top.px': yCoordinate - 7, 'left.px': xCoordinate - 7, 'width.px': 15, 'height.px': 15, 'position': 'absolute'}">
+                </div>    
+            </div>
+            <br>
+            <div class="alert alert-danger" role="alert" [ngStyle]="{'display':submissionError ? 'block' : 'none'}">
+                {{errorMessage}}
+            </div>
+            <input type="button" (click)="attemptSubmission()" class="btn btn-success" value="Submit">
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,15 @@
+<app-nav></app-nav>
+<div class="container">
+    <h1>Admin Login</h1>
+    <form [formGroup]="loginForm">
+        <div class="form-group">
+            <label for="login">Username</label>
+            <input type="text" id="login" class="form-control" name="login" placeholder="username" formControlName="username">
+        </div> 
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" name="login" placeholder="password" formControlName="password">
+        </div>
+        <input type="button" (click)="attemptLogin()" class="btn btn-success" value="Log In">
+    </form>
+</div>
