@@ -76,6 +76,7 @@ export class AbilityLocationCreatorComponent {
       this.api.post('http://localhost:8080/api/abilityLocations', data).subscribe(result => {
         this.result = result;
         if (this.result.hasOwnProperty('error')) {
+          console.log(this.result);
           this.errorMessage = "Error! Name already taken!";
           this.submissionError = true;
         }
@@ -97,7 +98,6 @@ export class AbilityLocationCreatorComponent {
             
         }
       });
-       
     }
   
 }

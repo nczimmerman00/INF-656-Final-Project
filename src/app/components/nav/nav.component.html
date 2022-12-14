@@ -5,7 +5,10 @@
       <ng-template #thenBlock>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <button (click)="logout()" class='nav-link' href="/logout">Logout</button>
+            <a href="/admin" class="nav-link btn btn-secondary">Admin Home</a>
+          </li>
+          <li class="nav-item">
+            <button (click)="logout()" class='nav-link btn btn-secondary' href="/logout">Logout</button>
           </li>
         </ul>
       </ng-template>

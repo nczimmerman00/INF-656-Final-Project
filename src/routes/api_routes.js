@@ -68,7 +68,7 @@ router.post('/lineupLocations', async (req, res) => {
 });
 
 router.post('/lineups', async (req, res) => {
-	if (!req.body.name || !req.body.ability || !req.body.map || !req.body.side || !req.body.abilityLocation || !req.body.lineupLocation) {
+	if (!req.body.map || !req.body.name || !req.body.ability || !req.body.side || !req.body.throwType || !req.body.abilityLocation || !req.body.lineupLocation) {
 		throw "Missing Parameter";
 	}
 	const submission = new Lineup({
@@ -76,6 +76,7 @@ router.post('/lineups', async (req, res) => {
 		ability: req.body.ability,
 		map: req.body.map,
 		side: req.body.side,
+		throwType: req.body.throwType,
 		abilityLocation: req.body.abilityLocation,
 		lineupLocation: req.body.lineupLocation
 	})

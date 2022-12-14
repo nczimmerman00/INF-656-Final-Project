@@ -32,7 +32,7 @@ const Lineup = mongoose.model("Lineup", {
         type: String,
         required: true,
         validate(value) {
-            if (value.equals('attack') && value.equals('defense')) {
+            if (value === 'attack' && value === 'defense') {
                 throw new Error("Invalid side submitted! (enter 'attack' or 'defense')");
             }
         }
@@ -44,24 +44,10 @@ const Lineup = mongoose.model("Lineup", {
     abilityLocation: {
         type: String,
         required: true,
-        validateRange(value) {
-            AbilityLocation.findById(new ObjectID(value), (error, res) => {
-                if (error) {
-                    throw new Error("Ability Location does not exist!")   
-                }
-            })
-        }
     },
     lineupLocation: {
         type: String,
         required: true,
-        validateRange(value) {
-            LineupLocation.findById(new ObjectID(value), (error, res) => {
-                if (error) {
-                    throw new Error("Lineup Location does not exist!")   
-                }
-            })
-        }
     }
 });
 Lineup.schema.plugin(uniqueValidator);

@@ -17,6 +17,8 @@ export class LineupEditorComponent {
   abilityLocations: any;
   lineupLocations: any;
   lineups: any;
+  abilityLocationSelected: string = 'none';
+  abilitySelected: boolean = false;
 
   constructor(
     private api: ApiHttpService,
