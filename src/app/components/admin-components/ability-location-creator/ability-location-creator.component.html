@@ -45,8 +45,10 @@
             <div class="alert alert-danger" role="alert" [ngStyle]="{'display':submissionError ? 'block' : 'none'}">
                 {{errorMessage}}
             </div>
+            <div class="alert alert-success" role="alert" [ngStyle]="{'display':submissionSuccess ? 'block' : 'none'}">
+                <p>Ability location created successfully!</p>
+            </div>
             <input type="button" (click)="attemptSubmission()" class="btn btn-success" value="Submit">
         </div>
     </form>
 </div>
-

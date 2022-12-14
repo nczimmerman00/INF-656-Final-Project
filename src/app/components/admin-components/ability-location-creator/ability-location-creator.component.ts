@@ -20,6 +20,7 @@ export class AbilityLocationCreatorComponent {
   xCoordinate: number;
   yCoordinate: number;
   clicked: boolean = false;
+  submissionSuccess: boolean = false;
   submissionError: boolean = false;
   errorMessage: string;
   result: any = {};
@@ -58,6 +59,7 @@ export class AbilityLocationCreatorComponent {
   }
 
     attemptSubmission() {
+      this.submissionSuccess = false;
       // Check for empty values
       if (this.fileToUpload == null || !this.submissionForm.get('ability').value || !this.clicked) {
         this.errorMessage = "Error! A value was empty during submission! Check all values and try again.";
@@ -83,13 +85,21 @@ export class AbilityLocationCreatorComponent {
           this.imageAPI.uploadImage('http://localhost:8080/images/upload', 
             {"classification": "abilityLocation", "id": newID}, 
             this.fileToUpload!).subscribe(result => {
-              console.log(result);
+              if (this.result.hasOwnProperty('error')) {
+                this.errorMessage = "Error! Image failed to upload.";
+                this.submissionError = true;
+              }
+              else {
+                this.submissionError = false;
+                this.submissionSuccess = true;
+              }
             })
-            this.submissionError = false;
+            
         }
       });
        
     }
+  
 }
     
 

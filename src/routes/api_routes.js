@@ -4,6 +4,8 @@ LineupLocation = require('../models/LineupLocationModel.js');
 Lineup = require('../models/LineupModel.js');
 const router = express.Router();
 const cors = require('cors');
+const { exists } = require("../models/AbilityLocationModel.js");
+const fs = require('fs');
 
 router.use(cors());
 
@@ -102,7 +104,7 @@ router.patch("/abilityLocations/:id", async (req, res) => {
 			submission.positiony = req.body.positiony
 		}
 		await submission.save()
-		res.sendStatus(200)
+		res.status(201).json(submission);
 	
 	} catch {
 		res.status(404)
@@ -164,20 +166,33 @@ router.patch("/lineups/:id", async (req, res) => {
 router.delete("/abilityLocations/:id", async (req, res) => {
 	try {
 		await AbilityLocation.deleteOne({ _id: req.params.id })
-		res.status(204).send()
-	} catch {
-		res.status(404)
-		res.send({ error: "Ability Location doesn't exist!" })
-	}
+		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		if (!fs.existsSync(path)) {
+			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			if (!fs.existsSync(path)) {
+				res.status(404).send({ error: "Unable to find and delete ability location image!" })
+			}
+		}
+		fs.unlink(path, (err) => {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+		});
+		res.status(204).send({"success": "Deletion was successful!"})
+	} catch(err) {
+		console.log(err);
+		res.status(404).send({ error: "Ability Location doesn't exist!" })
+	};
 });
+
 
 router.delete("/lineupLocations/:id", async (req, res) => {
 	try {
 		await LineupLocation.deleteOne({ _id: req.params.id })
 		res.status(204).send()
 	} catch {
-		res.status(404)
-		res.send({ error: "Lineup Location doesn't exist!" })
+		res.status(404).send({ error: "Lineup Location doesn't exist!" })
 	}
 });
 
