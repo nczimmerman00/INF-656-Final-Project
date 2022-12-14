@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ApiHttpService } from 'src/app/services/http.service';
 import { MAPS } from 'src/app/config/constants';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-ability-location-editor',
@@ -119,6 +118,7 @@ export class AbilityLocationEditorComponent {
         else {
           this.updateMessage = 'Ability location deleted successfully! The page needs to be refreshed for changes to show up.'
           this.updateSuccess = true;
+          this.updateError = false;
         }
       });
     }

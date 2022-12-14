@@ -50,7 +50,8 @@ router.post('/abilityLocations', async (req, res) => {
 
 router.post('/lineupLocations', async (req, res) => {
 	if (!req.body.name || !req.body.positionx || !req.body.positiony || !req.body.map) {
-		throw "Missing Parameter";
+		console.log("Missing Parameter\nname: " + req.body.name + "\npositionx: " + req.body.positionx + 
+		'\npositiony: ' + req.body.positiony + '\nmap: ' + req.body.map);
 	}
 	const submission = new LineupLocation({
 		name: req.body.name,
@@ -126,7 +127,7 @@ router.patch("/lineupLocations/:id", async (req, res) => {
 			submission.positiony = req.body.positiony
 		}
 		await submission.save();
-		res.sendStatus(200);
+		res.status(201).json(submission);
 	
 	} catch {
 		res.status(404)
@@ -182,7 +183,7 @@ router.delete("/abilityLocations/:id", async (req, res) => {
 		res.status(204).send({"success": "Deletion was successful!"})
 	} catch(err) {
 		console.log(err);
-		res.status(404).send({ error: "Ability Location doesn't exist!" })
+		res.status(500).send({ error: "Error occured while deleting ability location!" })
 	};
 });
 
@@ -190,10 +191,24 @@ router.delete("/abilityLocations/:id", async (req, res) => {
 router.delete("/lineupLocations/:id", async (req, res) => {
 	try {
 		await LineupLocation.deleteOne({ _id: req.params.id })
-		res.status(204).send()
-	} catch {
-		res.status(404).send({ error: "Lineup Location doesn't exist!" })
-	}
+		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		if (!fs.existsSync(path)) {
+			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			if (!fs.existsSync(path)) {
+				res.status(404).send({ error: "Unable to find and delete lineup location image!" })
+			}
+		}
+		fs.unlink(path, (err) => {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+		});
+		res.status(204).send({"success": "Deletion was successful!"})
+	} catch(err) {
+		console.log(err);
+		res.status(500).send({ error: "Error occured while deleting lineup location!" })
+	};
 });
 
 router.delete("/lineups/:id", async (req, res) => {

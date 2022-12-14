@@ -10,6 +10,8 @@ import { LineupPositionEditorComponent } from './components/admin-components/lin
 import { AbilityLocationEditorComponent } from './components/admin-components/ability-location-editor/ability-location-editor.component';
 import { LineupEditorComponent } from './components/admin-components/lineup-editor/lineup-editor.component'
 import { AbilityLocationCreatorComponent } from './components/admin-components/ability-location-creator/ability-location-creator.component';
+import { LineupPositionCreatorComponent } from './components/admin-components/lineup-position-creator/lineup-position-creator.component';
+import { LineupCreatorComponent } from './components/admin-components/lineup-creator/lineup-creator.component';
 
 const routes: Routes = [
   // Public Routes
@@ -18,10 +20,12 @@ const routes: Routes = [
   // Admin Routes
   {path: 'admin/login', component:LoginComponent},
   {path: 'admin', component:AdminComponent, canActivate: [AuthenticationGuard]},
-  {path: 'admin/map/:map/lineup-position', component:LineupPositionEditorComponent, canActivate: [AuthenticationGuard]},
+  {path: 'admin/map/:map/lineup-location', component:LineupPositionEditorComponent, canActivate: [AuthenticationGuard]},
+  {path: 'admin/map/:map/lineup-location/create', component: LineupPositionCreatorComponent, canActivate: [AuthenticationGuard]},
   {path: 'admin/map/:map/ability-location', component:AbilityLocationEditorComponent, canActivate: [AuthenticationGuard]},
   {path: 'admin/map/:map/ability-location/create', component:AbilityLocationCreatorComponent, canActivate: [AuthenticationGuard]},
   {path: 'admin/map/:map/lineups', component: LineupEditorComponent, canActivate: [AuthenticationGuard]},
+  {path: 'admin/map/:map/lineups/create', component: LineupCreatorComponent, canActivate: [AuthenticationGuard]},
   // 404
   {path: '**', component:PagenotfoundComponent }
 ];

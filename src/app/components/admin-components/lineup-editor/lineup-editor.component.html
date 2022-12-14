@@ -1,1 +1,13 @@
-<p>lineup-editor works!</p>
+<app-nav></app-nav>
+<div class="container w-75 mt-3 text-center">
+    <h1 class="text-center">{{mapName}}</h1>
+    <a class="btn btn-primary" href="admin/map/{{map}}/lineups/create" role="button">Create New Lineup</a>
+</div>
+
+<!--Map-->
+<div class="text-center mt-3">
+    <h3>Select an ability location</h3>
+    <div class="container p-0" style="position:relative;top:0;left:0;width:512px">
+        <img src="../../../assets/img/maps/{{map}}_map.png" class="map">
+    </div>
+</div>

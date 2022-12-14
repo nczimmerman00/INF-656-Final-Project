@@ -1,1 +1,70 @@
-<p>lineup-position-editor works!</p>
+<app-nav></app-nav>
+<div class="container w-75 mt-3 text-center">
+    <h1 class="text-center">{{mapName}}</h1>
+    <a class="btn btn-primary" href="admin/map/{{map}}/lineup-location/create" role="button">Create New Lineup Location</a>
+</div>
+
+<!--Map-->
+<div class="text-center mt-3">
+<h3>Select a lineup location</h3>
+<div class="container p-0" style="position:relative;top:0;left:0;width:512px">
+    <img src="../../../assets/img/maps/{{map}}_map.png" class="map">
+    <!--Dot factory-->
+    <img *ngFor="let location of locations;" src="../../../assets/img/LineupLocationDot.png" 
+    [ngStyle]="{'height.px': 15, 'width.px': 15, 'position': 'absolute', 'left.px': location.positionx - 7, 'top.px': location.positiony - 7 }"
+    type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + location._id"
+    (click)="clearCoordinates()">
+</div> 
+</div>
+
+<!--Modal factory-->
+<div *ngFor="let location of locations;" class="modal fade text-center" [attr.id]="'modal' + location._id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{location.name}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!--Image-->
+          <img [attr.src]="'../../../assets/img/uploads/' + location._id + '.png'" class="img-fluid">
+          <!--Update form-->
+          <form [formGroup]="updateForm">
+            <div class="mb-3 mt-3">
+              <!--Name Input-->
+              <label for="updateName" class="form-label">Name: </label>
+              <input type="text" id="updateName" class="form-control" name="updateName" [attr.placeholder]="location.name" formControlName="name">
+              <!--Location Input-->
+              <div class="container text-center justify-content-center">
+                <br>
+                <label for="coordinates">Select a Location</label>
+                <div id="coordinates" name="coordinates"> 
+                    <label>Coordinates</label>
+                    <label>({{xCoordinate}}, {{yCoordinate}})</label>
+                </div> 
+                <!--Input Map-->
+                <div class="container p-0" style="position:relative;top:0;left:0;width:512px">
+                    <img src="../../../assets/img/maps/{{map}}_map.png" class="map" (click)="mapClicked($event)">
+                    <img src="../../../assets/img/LineupLocationDot.png" id="dot" [ngStyle]="{'display':clicked ? 'block' : 'none', 'top.px': yCoordinate - 7, 'left.px': xCoordinate - 7, 'width.px': 15, 'height.px': 15, 'position': 'absolute'}">
+                </div>    
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!--Alerts-->
+          <div class="alert alert-danger" role="alert" [ngStyle]="{'display':updateError ? 'block' : 'none'}">
+            {{errorMessage}}
+        </div>
+        <div class="alert alert-success" role="alert" [ngStyle]="{'display':updateSuccess ? 'block' : 'none'}">
+            <p>{{updateMessage}}</p>
+        </div>
+          <!--Buttons-->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <input type="button" class="btn btn-danger" value="Delete" (click)="attemptDeletion(location._id)">
+          <input type="button" class="btn btn-primary" value="Upload Changes" (click)="attemptUpdate(location._id)">
+        </div>
+      </div>
+    </div>
+  </div>
+

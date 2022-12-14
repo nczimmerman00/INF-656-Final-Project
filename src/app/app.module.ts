@@ -18,7 +18,6 @@ import { LineupEditorComponent } from './components/admin-components/lineup-edit
 import { AbilityLocationEditorComponent } from './components/admin-components/ability-location-editor/ability-location-editor.component';
 import { LineupPositionEditorComponent } from './components/admin-components/lineup-position-editor/lineup-position-editor.component';
 import { AbilityLocationCreatorComponent } from './components/admin-components/ability-location-creator/ability-location-creator.component';
-import { FileUploadComponent } from './components/admin-components/file-upload/file-upload.component';
 import { LineupPositionCreatorComponent } from './components/admin-components/lineup-position-creator/lineup-position-creator.component';
 import { LineupCreatorComponent } from './components/admin-components/lineup-creator/lineup-creator.component';
 
@@ -36,7 +35,6 @@ import { LineupCreatorComponent } from './components/admin-components/lineup-cre
     AbilityLocationEditorComponent,
     LineupPositionEditorComponent,
     AbilityLocationCreatorComponent,
-    FileUploadComponent,
     LineupPositionCreatorComponent,
     LineupCreatorComponent,
   ],

@@ -1,1 +1,11 @@
-<p>lineup-creator works!</p>
+<app-nav></app-nav>
+<div class="container w-75 mt-3">
+    <h1 class="text-center">Create Lineup for {{mapName}}</h1>
+    <form [formGroup]="submissionForm">
+        <div class="mb-3 text-center">
+            <!--Lineup Name-->
+            <label>Enter lineup name</label>
+            <input type="text" id="name" class="form-control" name="name" placeholder="enter a name" formControlName="locationName">
+        </div>
+    </form>
+</div>

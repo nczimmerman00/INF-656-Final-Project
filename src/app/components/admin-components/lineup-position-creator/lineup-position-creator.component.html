@@ -1,1 +1,40 @@
-<p>lineup-position-creator works!</p>
+<app-nav></app-nav>
+<div class="container w-75 mt-3">
+    <h1 class="text-center">Create Lineup Location for {{mapName}}</h1>
+    <form [formGroup]="submissionForm">
+        <div class="mb-3 text-center">
+            <h3>Enter lineup position name</h3>
+            <input type="text" id="name" class="form-control" name="name" placeholder="enter a name" formControlName="locationName">
+            <!--Image-->
+            <div>
+                <h3 class="text-center">Upload Image</h3>
+                <input class="form-control" accept="image/png, image/jpeg" type="file" id="formFile" name="file"
+                (change)="handleFileInput($any($event).target.files)">
+            </div>
+            <br>
+            
+            <!--Location-->
+            <div class="container text-center justify-content-center">
+                <br>
+                <h3 class="text-center">Select a location</h3>
+                <div id="coordinates"> 
+                    <h5>Coordinates</h5>
+                    <p>({{xCoordinate}}, {{yCoordinate}})</p>
+                </div> 
+                <!--Map-->
+                <div class="container p-0" style="position:relative;top:0;left:0;width:512px"> 
+                    <img src="../../../assets/img/maps/{{map}}_map.png" class="map" (click)="mapClicked($event)">
+                    <img src="../../../assets/img/LineupLocationDot.png" id="dot" [ngStyle]="{'display':clicked ? 'block' : 'none', 'top.px': yCoordinate - 7, 'left.px': xCoordinate - 7, 'width.px': 15, 'height.px': 15, 'position': 'absolute'}">
+                </div>    
+            </div>
+            <br>
+            <div class="alert alert-danger" role="alert" [ngStyle]="{'display':submissionError ? 'block' : 'none'}">
+                {{errorMessage}}
+            </div>
+            <div class="alert alert-success" role="alert" [ngStyle]="{'display':submissionSuccess ? 'block' : 'none'}">
+                <p>Lineup location created successfully!</p>
+            </div>
+            <input type="button" (click)="attemptSubmission()" class="btn btn-success" value="Submit">
+        </div>
+    </form>
+</div>
