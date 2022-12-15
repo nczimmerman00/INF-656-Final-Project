@@ -113,5 +113,6 @@ export class MappageComponent implements OnInit {
 
     setAbility(ability: string) {
       this.selectedAbility = ability;
+      this.selected = false;
     }
 }
