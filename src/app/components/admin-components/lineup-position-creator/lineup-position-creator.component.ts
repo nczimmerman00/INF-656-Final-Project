@@ -90,6 +90,11 @@ export class LineupPositionCreatorComponent {
               else {
                 this.submissionError = false;
                 this.submissionSuccess = true;
+                // Reset form
+                this.submissionForm.reset();
+                this.clicked = false;
+                this.xCoordinate = 0;
+                this.yCoordinate = 0;
               }
             })
             

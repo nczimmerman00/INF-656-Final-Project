@@ -16,9 +16,12 @@ export class LineupPositionEditorComponent {
   map: string;
   mapName: string;
   locations: any;
+  lineups: any;
+
   xCoordinate: number;
   yCoordinate: number;
   clicked: boolean = false;
+
   updateSuccess: boolean = false;
   updateMessage: string;
   errorMessage: string;
@@ -47,12 +50,17 @@ export class LineupPositionEditorComponent {
         if (!(MAPS.includes(this.map))) {
           this.router.navigate(['/404']);
         }
-      // Load lineup locations from database
+        // Load lineup locations from database
         let url = 'http://localhost:8080/api/lineupLocations/' + this.map;
         this.api.get(url).subscribe(data => {
           this.locations = data;
           console.log(this.locations);
         })
+        // Load lineups from database
+        url = 'http://localhost:8080/api/lineups/' + this.map;
+        this.api.get(url).subscribe(data => {
+        this.lineups = data;
+        });
       }
     )}
 
@@ -112,7 +120,24 @@ export class LineupPositionEditorComponent {
           this.updateError = true;
         }
         else {
-          this.updateMessage = 'Lineup location deleted successfully! The page needs to be refreshed for changes to show up.'
+          // Delete any lineups associated with the deleted ability location
+          let lineupList = this.lineups;
+          let lineupLocation = locationID;
+          var url = '';
+          lineupList = lineupList.filter(function(el: any) {
+            return (el.lineupLocation === lineupLocation);
+          });
+          lineupList.forEach((lineup: any, index: any) => {
+            url = 'http://localhost:8080/api/lineups/' + lineup._id;
+            this.api.delete(url).subscribe(result => {
+              this.result = result;
+              if (this.result != null) {
+                this.errorMessage = "Error! Failed to delete lineup. Lineup may not exist.";
+                this.updateError = true;
+              }
+            });
+          });
+          this.updateMessage = 'Lineup location and related lineups deleted successfully! The page needs to be refreshed for changes to show up.'
           this.updateSuccess = true;
           this.updateError = false;
         }

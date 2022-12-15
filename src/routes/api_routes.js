@@ -146,17 +146,11 @@ router.patch("/lineups/:id", async (req, res) => {
 		if (req.body.side) {
 			submission.side = req.body.side
 		}
-		if (req.body.ability) {
-			submission.ability = req.body.ability
-		}
-		if (req.body.abilityLocation) {
-			submission.abilityLocation = req.body.abilityLocation
-		}
-		if (req.body.lineupLocation) {
-			submission.lineupLocation = req.body.lineupLocation
+		if (req.body.throwType) {
+			submission.throwType = req.body.throwType
 		}
 		await submission.save()
-		res.sendStatus(200)
+		res.status(201).json(submission);
 	
 	} catch {
 		res.status(404)
@@ -168,6 +162,7 @@ router.patch("/lineups/:id", async (req, res) => {
 router.delete("/abilityLocations/:id", async (req, res) => {
 	try {
 		await AbilityLocation.deleteOne({ _id: req.params.id })
+		// Delete Image
 		var path = "src/assets/img/uploads/" + req.params.id + ".png";
 		if (!fs.existsSync(path)) {
 			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
@@ -192,6 +187,7 @@ router.delete("/abilityLocations/:id", async (req, res) => {
 router.delete("/lineupLocations/:id", async (req, res) => {
 	try {
 		await LineupLocation.deleteOne({ _id: req.params.id })
+		// Delete Image
 		var path = "src/assets/img/uploads/" + req.params.id + ".png";
 		if (!fs.existsSync(path)) {
 			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
@@ -215,11 +211,25 @@ router.delete("/lineupLocations/:id", async (req, res) => {
 router.delete("/lineups/:id", async (req, res) => {
 	try {
 		await Lineup.deleteOne({ _id: req.params.id })
-		res.status(204).send()
-	} catch {
-		res.status(404)
-		res.send({ error: "Lineup doesn't exist!" })
-	}
+		// Delete Image
+		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		if (!fs.existsSync(path)) {
+			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			if (!fs.existsSync(path)) {
+				res.status(404).send({ error: "Unable to find and delete lineup image!" })
+			}
+		}
+		fs.unlink(path, (err) => {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+		});
+		res.status(204).send({"success": "Deletion was successful!"})
+	} catch(err) {
+		console.log(err);
+		res.status(500).send({ error: "Error occured while deleting lineup!" })
+	};
 });
 
 

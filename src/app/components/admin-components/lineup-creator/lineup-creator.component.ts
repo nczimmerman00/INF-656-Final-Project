@@ -110,6 +110,10 @@ export class LineupCreatorComponent {
             else {
               this.submissionError = false;
               this.submissionSuccess = true;
+              // Reset form
+              this.submissionForm.reset();
+              this.selectedAbilityLocation = null;
+              this.selectedLineupLocation = null;
             }
           })
           
@@ -127,10 +131,4 @@ export class LineupCreatorComponent {
       this.selectedLineupLocation = id;
       this.selectedLineupLocationName = name;
     }
-
-    /*getAbility(id: string) {
-      let location = this.abilityLocations;
-      location = location.filter(function(el: any) {return el._id === id});
-      return location;
-    }*/
 }
