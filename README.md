@@ -1,27 +1,33 @@
-# LineupWebsite
+INF656 - Back End Web Development II <br />
+Nicholas Zimmerman <br />
+Final Project<br />
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+<h1 align="center"> INF 656 Final Project</h1>
+<br>
+This project is a full stack website meant to be a resource for the character, Viper from the video game, VALORANT. This website archives in-game 'ability lineups' to educate other users.
 
-## Development server
+### Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Start by cloning the repository using:<br>
+`git clone https://github.com/nczimmerman00/INF-656-Final-Project.git`<br>
+You will also need to install and run mongodb. The mongodb server must run using the address
+127.0.0.1:27017. Links to download and instructions on how to install and run can be viewed at: https://www.mongodb.com/docs/manual/installation/
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
+To install the packages needed to run the website, open a terminal (such as command prompt) in the
+folder where you cloned this repository and enter the following command:</br>
+`npm i`</br>
 
-## Build
+### Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To start the back end of the website, use a terminal where you cloned the repository and run the
+command:</br>
+`node server.js`</br>
+To start the front end of the website, use another terminal in the folder where you cloned the
+repository and run the command:</br>
+`ng serve`</br>
+The website can the be accessed by going to the link, localhost:4200. The backend api service is running
+on localhost:8080.</br>
+To Add/Edit/Delete lineups, ability locations, and lineup locations, you need to access the admin page. Do so by using the link localhost:4200/admin. A login will be required to access any admin pages. The default admin usernamen and password are, 'username' and 'password', respectively.<br>
+In order to add lineups, ability locations and lineup locations need to be added, as a lineup consists of both of those things. Note that lineup locations and ability locations are map specific. Use the admin home page to select a map and add entries to the website. 
