@@ -51,11 +51,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="lineupModalLabel">{{lineupName}}</h5>
+          
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <!--Images-->
             <h3>Lineup</h3>
+            <h5>{{throwType}}</h5>
             <img [attr.src]="'../../../assets/img/uploads/' + selectedLineup + '.png'" class="img-fluid">
             <h3 class="mt-3">Lineup Spot</h3>
             <img [attr.src]="'../../../assets/img/uploads/' + selectedLineupLocation + '.png'" class="img-fluid">

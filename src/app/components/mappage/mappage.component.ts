@@ -24,8 +24,10 @@ export class MappageComponent implements OnInit {
   selectedLineupLocation: string;
   selectedLineup: string;
   selectedAbility: string = 'snake-bite';
+  selectedSide: string = 'both';
 
   lineupName: string;
+  throwType: string;
 
   constructor(
     private api: ApiHttpService,
@@ -109,6 +111,7 @@ export class MappageComponent implements OnInit {
       });
       this.selectedLineup = lineupList[0]._id;
       this.lineupName = lineupList[0].name;
+      this.throwType = lineupList[0].throwType;
     }
 
     setAbility(ability: string) {
