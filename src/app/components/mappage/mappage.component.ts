@@ -69,8 +69,20 @@ export class MappageComponent implements OnInit {
         }
         return false;
       }
-      if (this.selectedAbility === ability)
+      let lineupList = this.lineups;
+      let abilityFilter = this.selectedAbility;
+      let side = this.selectedSide;
+      if (ability === this.selectedAbility && side === 'both') {
         return true;
+      }
+      else {
+        lineupList = lineupList.filter(function(el: any) {
+          return (el.ability === abilityFilter && el.side === side && el.abilityLocation === id)
+        });
+      }
+      if (lineupList.length > 0) {
+        return true;
+      }
       return false;
     }
 
@@ -79,9 +91,17 @@ export class MappageComponent implements OnInit {
       if (this.selected) {
         let lineupList = this.lineups;
         let ability = this.selectedAbilityLocation;
-        lineupList = lineupList.filter(function(el: any) {
-          return (el.abilityLocation === ability && el.lineupLocation === id)
-        });
+        let side = this.selectedSide;
+        if (side === 'both') {
+          lineupList = lineupList.filter(function(el: any) {
+            return (el.abilityLocation === ability && el.lineupLocation === id)
+          });
+        }
+        else {
+          lineupList = lineupList.filter(function(el: any) {
+            return (el.abilityLocation === ability && el.side === side && el.lineupLocation === id)
+          });
+        }
         if (lineupList.length > 0) {
           return true;
         }
@@ -116,6 +136,11 @@ export class MappageComponent implements OnInit {
 
     setAbility(ability: string) {
       this.selectedAbility = ability;
+      this.selected = false;
+    }
+
+    setSide(side: string) {
+      this.selectedSide = side;
       this.selected = false;
     }
 }

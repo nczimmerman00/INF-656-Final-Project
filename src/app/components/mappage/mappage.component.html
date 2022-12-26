@@ -18,6 +18,17 @@
             <input type="radio" class="btn-check" name="ability" id="vipers-pit" autocomplete="off" (click)="setAbility('vipers-pit')">
             <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
         </div>
+        <!--Side Filter-->
+        <div class="mb-3">
+          <input type="radio" class="btn-check" name="side" id="side-both" autocomplete="off" (click)="setSide('both')" checked>
+          <label class="btn btn-outline-primary" for="side-both">Both</label>
+
+          <input type="radio" class="btn-check" name="side" id="side-attack" autocomplete="off" (click)="setSide('attack')">
+          <label class="btn btn-outline-danger" for="side-attack">Attack</label>
+
+          <input type="radio" class="btn-check" name="side" id="side-defense" autocomplete="off" (click)="setSide('defense')">
+          <label class="btn btn-outline-success" for="side-defense">Defense</label>
+      </div>
     </div>
     
     <!--Map-->
