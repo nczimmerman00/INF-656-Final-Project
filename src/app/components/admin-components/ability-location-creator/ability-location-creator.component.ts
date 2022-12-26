@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ApiHttpService } from 'src/app/services/http.service';
 import { ImageUploadService } from 'src/app/services/image-upload.service'
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MAPS } from 'src/app/config/constants';
+import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
 
 @Component({
   selector: 'app-ability-location-creator',
@@ -73,7 +73,7 @@ export class AbilityLocationCreatorComponent {
                 'positiony': this.yCoordinate,
                 'map': this.map};
                   
-      this.api.post('http://localhost:8080/api/abilityLocations', data).subscribe(result => {
+      this.api.post(API_ENDPOINT + '/api/abilityLocations', data).subscribe(result => {
         this.result = result;
         if (this.result.hasOwnProperty('error')) {
           console.log(this.result);
@@ -83,7 +83,7 @@ export class AbilityLocationCreatorComponent {
         else {
           // Upload image
           var newID = this.result._id;
-          this.imageAPI.uploadImage('http://localhost:8080/images/upload', 
+          this.imageAPI.uploadImage(API_ENDPOINT + '/images/upload', 
             {"classification": "abilityLocation", "id": newID}, 
             this.fileToUpload!).subscribe(result => {
               if (this.result.hasOwnProperty('error')) {

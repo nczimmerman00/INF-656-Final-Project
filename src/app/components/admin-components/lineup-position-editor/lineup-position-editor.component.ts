@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiHttpService } from 'src/app/services/http.service';
-import { MAPS } from 'src/app/config/constants';
+import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -51,13 +51,13 @@ export class LineupPositionEditorComponent {
           this.router.navigate(['/404']);
         }
         // Load lineup locations from database
-        let url = 'http://localhost:8080/api/lineupLocations/' + this.map;
+        let url = API_ENDPOINT + '/api/lineupLocations/' + this.map;
         this.api.get(url).subscribe(data => {
           this.locations = data;
           console.log(this.locations);
         })
         // Load lineups from database
-        url = 'http://localhost:8080/api/lineups/' + this.map;
+        url = API_ENDPOINT + '/api/lineups/' + this.map;
         this.api.get(url).subscribe(data => {
         this.lineups = data;
         });
@@ -96,7 +96,7 @@ export class LineupPositionEditorComponent {
       formData.positionx = this.xCoordinate;
       formData.positiony = this.yCoordinate;
     }
-    var url = 'http://localhost:8080/api/lineupLocations/' + locationID;
+    var url = API_ENDPOINT + '/api/lineupLocations/' + locationID;
     this.api.patch(url, formData).subscribe(result => {
         this.result = result;
         if (this.result.hasOwnProperty('error')) {
@@ -112,7 +112,7 @@ export class LineupPositionEditorComponent {
 
   attemptDeletion(locationID: any) {
     if (confirm('Are you sure you want to delete this lineup location?')) {
-      var url = 'http://localhost:8080/api/lineupLocations/' + locationID;
+      var url = API_ENDPOINT + '/api/lineupLocations/' + locationID;
       this.api.delete(url).subscribe(result => {
         this.result = result;
         if (this.result != null) {
@@ -128,7 +128,7 @@ export class LineupPositionEditorComponent {
             return (el.lineupLocation === lineupLocation);
           });
           lineupList.forEach((lineup: any, index: any) => {
-            url = 'http://localhost:8080/api/lineups/' + lineup._id;
+            url = API_ENDPOINT + '/api/lineups/' + lineup._id;
             this.api.delete(url).subscribe(result => {
               this.result = result;
               if (this.result != null) {

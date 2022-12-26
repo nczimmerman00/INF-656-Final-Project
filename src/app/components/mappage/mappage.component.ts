@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { MAPS } from 'src/app/config/constants';
+import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
 import { ApiHttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -42,17 +42,17 @@ export class MappageComponent implements OnInit {
             this.router.navigate(['/404']);
           }
         // Load ability locations from database
-        let url = 'http://localhost:8080/api/abilityLocations/' + this.map;
+        let url = API_ENDPOINT + '/api/abilityLocations/' + this.map;
         this.api.get(url).subscribe(data => {
           this.abilityLocations = data;
         });
         // Load lineup locations from database
-        url = 'http://localhost:8080/api/lineupLocations/' + this.map;
+        url = API_ENDPOINT + '/api/lineupLocations/' + this.map;
         this.api.get(url).subscribe(data => {
             this.lineupLocations = data;
           });
         // Load lineups from database
-        url = 'http://localhost:8080/api/lineups/' + this.map;
+        url = API_ENDPOINT + '/api/lineups/' + this.map;
         this.api.get(url).subscribe(data => {
           this.lineups = data;
           });

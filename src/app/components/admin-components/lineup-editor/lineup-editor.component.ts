@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiHttpService } from 'src/app/services/http.service';
-import { MAPS } from 'src/app/config/constants';
+import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -56,17 +56,17 @@ export class LineupEditorComponent {
           this.router.navigate(['/404']);
         }
       // Load ability locations from database
-      let url = 'http://localhost:8080/api/abilityLocations/' + this.map;
+      let url = API_ENDPOINT + '/api/abilityLocations/' + this.map;
       this.api.get(url).subscribe(data => {
         this.abilityLocations = data;
       });
       // Load lineup locations from database
-      url = 'http://localhost:8080/api/lineupLocations/' + this.map;
+      url = API_ENDPOINT + '/api/lineupLocations/' + this.map;
       this.api.get(url).subscribe(data => {
           this.lineupLocations = data;
         });
       // Load lineups from database
-      url = 'http://localhost:8080/api/lineups/' + this.map;
+      url = API_ENDPOINT + '/api/lineups/' + this.map;
       this.api.get(url).subscribe(data => {
         this.lineups = data;
       });
@@ -147,7 +147,7 @@ export class LineupEditorComponent {
       if (this.updateForm.get('throwType').value) {
         formData.throwType = this.updateForm.get('throwType').value;
       }
-      var url = 'http://localhost:8080/api/lineups/' + this.selectedLineup;
+      var url = API_ENDPOINT + '/api/lineups/' + this.selectedLineup;
       this.api.patch(url, formData).subscribe(result => {
           this.result = result;
           if (this.result.hasOwnProperty('error')) {
@@ -163,7 +163,7 @@ export class LineupEditorComponent {
 
     attemptDeletion() {
       if (confirm('Are you sure you want to delete this lineup?')) {
-        var url = 'http://localhost:8080/api/lineups/' + this.selectedLineup;
+        var url = API_ENDPOINT + '/api/lineups/' + this.selectedLineup;
         this.api.delete(url).subscribe(result => {
           this.result = result;
           if (this.result != null) {

@@ -18,7 +18,6 @@ export class ImageUploadService {
     
     formData.append('file', image, fileName+'.'+fileExtension);
 
-    //return this.http.post('/api/abilityLocation/image-upload', formData);
     return this.http.post(url, formData, {headers: options});
   }
 }
