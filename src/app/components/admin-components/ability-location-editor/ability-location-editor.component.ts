@@ -26,6 +26,8 @@ export class AbilityLocationEditorComponent {
   updateError: boolean = false;
   result: any;
 
+  selectedAbility: string = 'snake-bite';
+
   constructor(
     private api: ApiHttpService,
     private route: ActivatedRoute,
@@ -145,5 +147,16 @@ export class AbilityLocationEditorComponent {
         }
       });
     }
+  }
+
+  setAbility(ability: string) {
+    this.selectedAbility = ability;
+  }
+
+  abilityDisplay(id: string, ability: string) {
+    if (ability === this.selectedAbility) {
+      return true;
+    }
+    return false;
   }
 }

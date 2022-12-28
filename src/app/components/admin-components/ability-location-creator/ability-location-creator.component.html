@@ -16,16 +16,16 @@
             
             <!--Ability-->
             <h3>Select Ability</h3>
-            <input type="radio" class="btn-check" name="ability" id="snake-bite" value="snake-bite" autocomplete="off" formControlName="ability">
+            <input type="radio" class="btn-check" name="ability" id="snake-bite" value="snake-bite" autocomplete="off" formControlName="ability" (click)="setAbility('snake-bite')">
             <label class="btn btn-outline-primary" for="snake-bite">Snake Bite</label>
 
-            <input type="radio" class="btn-check" name="ability" id="poison-orb" value="poison-orb" autocomplete="off" formControlName="ability">
+            <input type="radio" class="btn-check" name="ability" id="poison-orb" value="poison-orb" autocomplete="off" formControlName="ability" (click)="setAbility('poison-orb')">
             <label class="btn btn-outline-primary" for="poison-orb">Poison Orb</label>
 
-            <input type="radio" class="btn-check" name="ability" id="toxic-screen" value="toxic-screen" autocomplete="off" formControlName="ability">
+            <input type="radio" class="btn-check" name="ability" id="toxic-screen" value="toxic-screen" autocomplete="off" formControlName="ability" (click)="setAbility('toxic-screen')">
             <label class="btn btn-outline-primary" for="toxic-screen">Toxic Screen</label>
 
-            <input type="radio" class="btn-check" name="ability" id="vipers-pit" value="vipers-pit" autocomplete="off" formControlName="ability">
+            <input type="radio" class="btn-check" name="ability" id="vipers-pit" value="vipers-pit" autocomplete="off" formControlName="ability" (click)="setAbility('vipers-pit')">
             <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
 
             <!--Location-->
@@ -40,6 +40,11 @@
                 <div class="container p-0" style="position:relative;top:0;left:0;width:512px">
                     <img src="../../../assets/img/maps/{{map}}_map.png" class="map" (click)="mapClicked($event)">
                     <img src="../../../assets/img/AbilityLocationDot.png" id="dot" [ngStyle]="{'display':clicked ? 'block' : 'none', 'top.px': yCoordinate - 7, 'left.px': xCoordinate - 7, 'width.px': 15, 'height.px': 15, 'position': 'absolute'}">
+                    <!--Dot factory-->
+                    <img *ngFor="let location of locations;" src="../../../assets/img/LineupLocationDot.png" 
+                    [ngStyle]="{'height.px': 15, 'width.px': 15, 'position': 'absolute', 'left.px': location.positionx - 7, 'top.px': location.positiony - 7, 
+                    'display':abilityDisplay(location._id, location.ability) ? 'block' : 'none' }"
+                    type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + location._id">
                 </div>    
             </div>
             <br>

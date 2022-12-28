@@ -24,6 +24,9 @@ export class AbilityLocationCreatorComponent {
   submissionError: boolean = false;
   errorMessage: string;
   result: any = {};
+  locations: any;
+
+  selectedAbility: string = 'snake-bite';
 
   constructor(
     private api: ApiHttpService,
@@ -45,6 +48,12 @@ export class AbilityLocationCreatorComponent {
         if (!(MAPS.includes(this.map))) {
           this.router.navigate(['/404']);
         }
+        // Load ability locations from database
+        let url = API_ENDPOINT + '/api/abilityLocations/' + this.map;
+        this.api.get(url).subscribe(data => {
+          this.locations = data;
+          console.log(this.locations);
+        })
       }
     )}
 
@@ -58,53 +67,63 @@ export class AbilityLocationCreatorComponent {
       this.fileToUpload = files.item(0);
   }
 
-    attemptSubmission() {
-      this.submissionSuccess = false;
-      // Check for empty values
-      if (this.fileToUpload == null || !this.submissionForm.get('ability').value || !this.clicked) {
-        this.errorMessage = "Error! A value was empty during submission! Check all values and try again.";
-        this.submissionError = true;
-        return;
-      }
-      //Submit data to the mongodb server
-      var data = {"name": this.submissionForm.get('locationName').value, 
-                'ability': this.submissionForm.get('ability').value,
-                'positionx': this.xCoordinate,
-                'positiony': this.yCoordinate,
-                'map': this.map};
-                  
-      this.api.post(API_ENDPOINT + '/api/abilityLocations', data).subscribe(result => {
-        this.result = result;
-        if (this.result.hasOwnProperty('error')) {
-          console.log(this.result);
-          this.errorMessage = "Error! Name already taken!";
-          this.submissionError = true;
-        }
-        else {
-          // Upload image
-          var newID = this.result._id;
-          this.imageAPI.uploadImage(API_ENDPOINT + '/images/upload', 
-            {"classification": "abilityLocation", "id": newID}, 
-            this.fileToUpload!).subscribe(result => {
-              if (this.result.hasOwnProperty('error')) {
-                this.errorMessage = "Error! Image failed to upload.";
-                this.submissionError = true;
-              }
-              else {
-                this.submissionError = false;
-                this.submissionSuccess = true;
-                // Reset form
-                this.submissionForm.reset();
-                this.clicked = false;
-                this.xCoordinate = 0;
-                this.yCoordinate = 0;
-              }
-            })
-            
-        }
-      });
+  attemptSubmission() {
+    this.submissionSuccess = false;
+    // Check for empty values
+    if (this.fileToUpload == null || !this.submissionForm.get('ability').value || !this.clicked) {
+      this.errorMessage = "Error! A value was empty during submission! Check all values and try again.";
+      this.submissionError = true;
+      return;
     }
+    //Submit data to the mongodb server
+    var data = {"name": this.submissionForm.get('locationName').value, 
+              'ability': this.submissionForm.get('ability').value,
+              'positionx': this.xCoordinate,
+              'positiony': this.yCoordinate,
+              'map': this.map};
+                
+    this.api.post(API_ENDPOINT + '/api/abilityLocations', data).subscribe(result => {
+      this.result = result;
+      if (this.result.hasOwnProperty('error')) {
+        console.log(this.result);
+        this.errorMessage = "Error! Name already taken!";
+        this.submissionError = true;
+      }
+      else {
+        // Upload image
+        var newID = this.result._id;
+        this.imageAPI.uploadImage(API_ENDPOINT + '/images/upload', 
+          {"classification": "abilityLocation", "id": newID}, 
+          this.fileToUpload!).subscribe(result => {
+            if (this.result.hasOwnProperty('error')) {
+              this.errorMessage = "Error! Image failed to upload.";
+              this.submissionError = true;
+            }
+            else {
+              this.submissionError = false;
+              this.submissionSuccess = true;
+              // Reset form
+              this.submissionForm.reset();
+              this.clicked = false;
+              this.xCoordinate = 0;
+              this.yCoordinate = 0;
+            }
+          })
+          
+      }
+    });
+  }
   
+  setAbility(ability: string) {
+    this.selectedAbility = ability;
+  }
+
+  abilityDisplay(id: string, ability: string) {
+    if (ability === this.selectedAbility) {
+      return true;
+    }
+    return false;
+  }
 }
     
 

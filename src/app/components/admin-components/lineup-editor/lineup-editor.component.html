@@ -4,6 +4,24 @@
     <a class="btn btn-primary" href="admin/map/{{map}}/lineups/create" role="button">Create New Lineup</a>
 </div>
 
+<!--Search controls-->
+<div class="mt-3 text-center justify-content-center">
+    <!--Ability Filter-->
+    <div class="mb-3">
+        <input type="radio" class="btn-check" name="ability" id="snake-bite" autocomplete="off" (click)="setAbility('snake-bite')" checked>
+        <label class="btn btn-outline-primary" for="snake-bite">Snake Bite</label>
+  
+        <input type="radio" class="btn-check" name="ability" id="poison-orb" autocomplete="off" (click)="setAbility('poison-orb')">
+        <label class="btn btn-outline-primary" for="poison-orb">Poison Orb</label>
+  
+        <input type="radio" class="btn-check" name="ability" id="toxic-screen" autocomplete="off" (click)="setAbility('toxic-screen')">
+        <label class="btn btn-outline-primary" for="toxic-screen">Toxic Screen</label>
+  
+        <input type="radio" class="btn-check" name="ability" id="vipers-pit" autocomplete="off" (click)="setAbility('vipers-pit')">
+        <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
+    </div>
+  </div>
+
 <!--Map-->
 <div class="text-center mt-3">
     <div *ngIf="selected; else elseBlock"><h3>Select a lineup location</h3></div>
@@ -15,7 +33,7 @@
         <img *ngFor="let location of abilityLocations;" src="../../../assets/img/AbilityLocationDot.png" 
         [ngStyle]="{'height.px': 15, 'width.px': 15, 'position': 'absolute', 'left.px': 
         location.positionx - 7, 'top.px': location.positiony - 7, 
-        'display':abilityDisplay(location._id) ? 'block' : 'none'}"
+        'display':abilityDisplay(location._id, location.ability) ? 'block' : 'none'}"
         type="button" (click)="selectAbilityLocation(location._id)">
 
         <!--Lineup Location Dot Factory-->

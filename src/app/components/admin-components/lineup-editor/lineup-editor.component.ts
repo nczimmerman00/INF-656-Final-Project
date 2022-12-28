@@ -34,6 +34,9 @@ export class LineupEditorComponent {
   updateError: boolean = false;
   result: any;
 
+  selectedAbility: string = 'snake-bite';
+  selectedSide: string = 'both';
+
   constructor(
     private api: ApiHttpService,
     private route: ActivatedRoute,
@@ -74,14 +77,17 @@ export class LineupEditorComponent {
     )}
 
     // Returns true if ability location should be displayed, false otherwise
-    abilityDisplay(id: string) {
+    abilityDisplay(id: string, ability: string) {
       if (this.selected) {
         if (id === this.selectedAbilityLocation) {
           return true;
         }
         return false;
       }
-      return true;
+      if(this.selectedAbility == ability) {
+        return true;
+      }
+      return false;
     }
 
     // Returns true if lineup location should be displayed, false otherwise
@@ -177,5 +183,13 @@ export class LineupEditorComponent {
           }
         });
       }
+    }
+
+    setAbility(ability: string) {
+      this.selectedAbility = ability;
+    }
+  
+    setSide(side: string) {
+      this.selectedSide = side;
     }
 }

@@ -28,6 +28,7 @@ export class LineupCreatorComponent {
   submissionError: boolean = false;
   errorMessage: string;
   result: any = {};
+  selectedSearchAbility: string = 'snake-bite';
 
 
   constructor(
@@ -130,5 +131,16 @@ export class LineupCreatorComponent {
     selectLineupLocation(id: string, name: string) {
       this.selectedLineupLocation = id;
       this.selectedLineupLocationName = name;
+    }
+
+    setAbility(ability: string) {
+      this.selectedSearchAbility = ability;
+    }
+  
+    abilityDisplay(id: string, ability: string) {
+      if (ability === this.selectedSearchAbility) {
+        return true;
+      }
+      return false;
     }
 }

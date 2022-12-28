@@ -4,6 +4,24 @@
     <a class="btn btn-primary" href="admin/map/{{map}}/ability-location/create" role="button">Create New Ability Location</a>
 </div>
 
+<!--Search controls-->
+<div class="mt-3 text-center justify-content-center">
+  <!--Ability Filter-->
+  <div class="mb-3">
+      <input type="radio" class="btn-check" name="ability" id="snake-bite" autocomplete="off" (click)="setAbility('snake-bite')" checked>
+      <label class="btn btn-outline-primary" for="snake-bite">Snake Bite</label>
+
+      <input type="radio" class="btn-check" name="ability" id="poison-orb" autocomplete="off" (click)="setAbility('poison-orb')">
+      <label class="btn btn-outline-primary" for="poison-orb">Poison Orb</label>
+
+      <input type="radio" class="btn-check" name="ability" id="toxic-screen" autocomplete="off" (click)="setAbility('toxic-screen')">
+      <label class="btn btn-outline-primary" for="toxic-screen">Toxic Screen</label>
+
+      <input type="radio" class="btn-check" name="ability" id="vipers-pit" autocomplete="off" (click)="setAbility('vipers-pit')">
+      <label class="btn btn-outline-primary" for="vipers-pit">Viper's Pit</label>
+  </div>
+</div>
+
 <!--Map-->
 <div class="text-center mt-3">
 <h3>Select an ability location</h3>
@@ -11,7 +29,8 @@
     <img src="../../../assets/img/maps/{{map}}_map.png" class="map">
     <!--Dot factory-->
     <img *ngFor="let location of locations;" src="../../../assets/img/AbilityLocationDot.png" 
-    [ngStyle]="{'height.px': 15, 'width.px': 15, 'position': 'absolute', 'left.px': location.positionx - 7, 'top.px': location.positiony - 7 }"
+    [ngStyle]="{'height.px': 15, 'width.px': 15, 'position': 'absolute', 'left.px': location.positionx - 7, 'top.px': location.positiony - 7,
+    'display':abilityDisplay(location._id, location.ability) ? 'block' : 'none' }"
     type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#modal' + location._id"
     (click)="clearCoordinates()">
 </div> 
