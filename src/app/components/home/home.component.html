@@ -7,93 +7,14 @@
     <p>-Lineup Location: Where to position yourself when performing a lineup.</p>
     <p>-Lineup: Where to aim when perofrming a lineup.</p>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-    <!--Ascent-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/ascent">
-                <img class="card-img-top" src="../../../assets/img/home/ascent pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Ascent</h3>
-                </div>
-            </a>
+        <div *ngFor="let map of MAPS;" class="col">
+            <div class="card p-3">
+                <a type="button" class="list-group-item" href="/map/{{map}}">
+                    <img class="card-img-top" src="../../../assets/img/home/{{map}} pfp.jpg">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">{{map.charAt(0).toUpperCase() + map.slice(1)}}</h3>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
-    <!--Bind-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/bind">
-                <img class="card-img-top" src="../../../assets/img/home/bind pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Bind</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Breeze-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/breeze">
-                <img class="card-img-top" src="../../../assets/img/home/breeze pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Breeze</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Fracture-->
-    <div>
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/fracture">
-                <img class="card-img-top" src="../../../assets/img/home/fracture pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Fracture</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Haven-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/haven">
-                <img class="card-img-top" src="../../../assets/img/home/haven pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Haven</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Icebox-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/icebox">
-                <img class="card-img-top" src="../../../assets/img/home/icebox pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Icebox</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Pearl-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/pearl">
-                <img class="card-img-top" src="../../../assets/img/home/pearl pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Pearl</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!--Split-->
-    <div class="col">
-        <div class="card p-3">
-            <a type="button" class="list-group-item" href="/map/split">
-                <img class="card-img-top" src="../../../assets/img/home/split pfp.jpg">
-                <div class="card-body text-center">
-                    <h3 class="card-title">Split</h3>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
 </div>
