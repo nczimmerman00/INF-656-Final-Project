@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { ApiHttpService } from 'src/app/services/http.service';
-import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
+import { ApiHttpService } from 'client/app/services/http.service';
+import { MAPS, API_ENDPOINT } from 'client/app/config/constants';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({

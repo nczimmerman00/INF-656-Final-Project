@@ -10,7 +10,7 @@ router.use(cors());
 // Image Post Routes
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null,'src/assets/img/uploads');
+      cb(null,'client/assets/img/uploads');
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);

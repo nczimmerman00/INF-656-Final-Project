@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { ApiHttpService } from 'src/app/services/http.service';
-import { ImageUploadService } from 'src/app/services/image-upload.service'
+import { ApiHttpService } from 'client/app/services/http.service';
+import { ImageUploadService } from 'client/app/services/image-upload.service'
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
+import { MAPS, API_ENDPOINT } from 'client/app/config/constants';
 
 @Component({
   selector: 'app-lineup-creator',

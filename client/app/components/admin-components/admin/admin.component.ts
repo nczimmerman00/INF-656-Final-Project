@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MAPS } from 'src/app/config/constants';
+import { MAPS } from 'client/app/config/constants';
 
 @Component({
   selector: 'app-admin',

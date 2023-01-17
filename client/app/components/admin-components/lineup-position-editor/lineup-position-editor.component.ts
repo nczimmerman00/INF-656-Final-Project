@@ -1,32 +1,32 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
-import { ApiHttpService } from 'src/app/services/http.service';
-import { MAPS, API_ENDPOINT } from 'src/app/config/constants';
+import { ApiHttpService } from 'client/app/services/http.service';
+import { MAPS, API_ENDPOINT } from 'client/app/config/constants';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-ability-location-editor',
-  templateUrl: './ability-location-editor.component.html',
-  styleUrls: ['./ability-location-editor.component.css'],
+  selector: 'app-lineup-position-editor',
+  templateUrl: './lineup-position-editor.component.html',
+  styleUrls: ['./lineup-position-editor.component.css'],
   providers: [ApiHttpService]
 })
-export class AbilityLocationEditorComponent {
-  
+export class LineupPositionEditorComponent {
+
   public updateForm: FormGroup;
   map: string;
   mapName: string;
   locations: any;
   lineups: any;
+
   xCoordinate: number;
   yCoordinate: number;
   clicked: boolean = false;
+
   updateSuccess: boolean = false;
   updateMessage: string;
   errorMessage: string;
   updateError: boolean = false;
   result: any;
-
-  selectedAbility: string = 'snake-bite';
 
   constructor(
     private api: ApiHttpService,
@@ -36,7 +36,6 @@ export class AbilityLocationEditorComponent {
     ) { 
       this.updateForm = this.fb.group({
         name:'',
-        ability:'',
         positionx:'',
         positiony:''
       });
@@ -51,8 +50,8 @@ export class AbilityLocationEditorComponent {
         if (!(MAPS.includes(this.map))) {
           this.router.navigate(['/404']);
         }
-        // Load ability locations from database
-        let url = API_ENDPOINT + '/api/abilityLocations/' + this.map;
+        // Load lineup locations from database
+        let url = API_ENDPOINT + '/api/lineupLocations/' + this.map;
         this.api.get(url).subscribe(data => {
           this.locations = data;
           console.log(this.locations);
@@ -83,7 +82,7 @@ export class AbilityLocationEditorComponent {
   attemptUpdate(locationID: any){
     this.updateSuccess = false;
     //Check for empty values
-    if (!this.updateForm.get('name').value && !this.updateForm.get('ability').value && !this.clicked) {
+    if (!this.updateForm.get('name').value && !this.clicked) {
       this.errorMessage = "Error! All values were empty during submission! Enter in a value and try again.";
       this.updateError = true;
       return;
@@ -93,43 +92,40 @@ export class AbilityLocationEditorComponent {
     if (this.updateForm.get('name').value) {
       formData.name = this.updateForm.get('name').value;
     }
-    if (this.updateForm.get('ability').value) {
-      formData.ability = this.updateForm.get('ability').value
-    }
     if (this.clicked) {
       formData.positionx = this.xCoordinate;
       formData.positiony = this.yCoordinate;
     }
-    var url = API_ENDPOINT + '/api/abilityLocations/' + locationID;
+    var url = API_ENDPOINT + '/api/lineupLocations/' + locationID;
     this.api.patch(url, formData).subscribe(result => {
         this.result = result;
         if (this.result.hasOwnProperty('error')) {
-          this.errorMessage = "Error! Failed to update ability location.";
+          this.errorMessage = "Error! Failed to update lineup location.";
           this.updateError = true;
         }
         else {
-          this.updateMessage = 'Ability location updated successfully! The page needs to be refreshed for changes to show up.'
+          this.updateMessage = 'Lineup location updated successfully! The page needs to be refreshed for changes to show up.'
           this.updateSuccess = true;
         }
       });
   }
 
   attemptDeletion(locationID: any) {
-    if (confirm('Are you sure you want to delete this ability location?')) {
-      var url = API_ENDPOINT + '/api/abilityLocations/' + locationID;
+    if (confirm('Are you sure you want to delete this lineup location?')) {
+      var url = API_ENDPOINT + '/api/lineupLocations/' + locationID;
       this.api.delete(url).subscribe(result => {
         this.result = result;
         if (this.result != null) {
-          this.errorMessage = "Error! Failed to delete ability location. Ability location may not exist.";
+          this.errorMessage = "Error! Failed to delete lineup location. Lineup location may not exist.";
           this.updateError = true;
         }
         else {
           // Delete any lineups associated with the deleted ability location
           let lineupList = this.lineups;
-          let abilityLocation = locationID;
+          let lineupLocation = locationID;
           var url = '';
           lineupList = lineupList.filter(function(el: any) {
-            return (el.abilityLocation === abilityLocation);
+            return (el.lineupLocation === lineupLocation);
           });
           lineupList.forEach((lineup: any, index: any) => {
             url = API_ENDPOINT + '/api/lineups/' + lineup._id;
@@ -141,22 +137,11 @@ export class AbilityLocationEditorComponent {
               }
             });
           });
-          this.updateMessage = 'Ability location and related lineups deleted successfully! The page needs to be refreshed for changes to show up.'
+          this.updateMessage = 'Lineup location and related lineups deleted successfully! The page needs to be refreshed for changes to show up.'
           this.updateSuccess = true;
           this.updateError = false;
         }
       });
     }
-  }
-
-  setAbility(ability: string) {
-    this.selectedAbility = ability;
-  }
-
-  abilityDisplay(id: string, ability: string) {
-    if (ability === this.selectedAbility) {
-      return true;
-    }
-    return false;
   }
 }

@@ -163,9 +163,9 @@ router.delete("/abilityLocations/:id", async (req, res) => {
 	try {
 		await AbilityLocation.deleteOne({ _id: req.params.id })
 		// Delete Image
-		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		var path = "client/assets/img/uploads/" + req.params.id + ".png";
 		if (!fs.existsSync(path)) {
-			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			path = "client/assets/img/uploads/" + req.params.id + ".jpeg";
 			if (!fs.existsSync(path)) {
 				res.status(404).send({ error: "Unable to find and delete ability location image!" })
 			}
@@ -188,9 +188,9 @@ router.delete("/lineupLocations/:id", async (req, res) => {
 	try {
 		await LineupLocation.deleteOne({ _id: req.params.id })
 		// Delete Image
-		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		var path = "client/assets/img/uploads/" + req.params.id + ".png";
 		if (!fs.existsSync(path)) {
-			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			path = "client/assets/img/uploads/" + req.params.id + ".jpeg";
 			if (!fs.existsSync(path)) {
 				res.status(404).send({ error: "Unable to find and delete lineup location image!" })
 			}
@@ -212,9 +212,9 @@ router.delete("/lineups/:id", async (req, res) => {
 	try {
 		await Lineup.deleteOne({ _id: req.params.id })
 		// Delete Image
-		var path = "src/assets/img/uploads/" + req.params.id + ".png";
+		var path = "client/assets/img/uploads/" + req.params.id + ".png";
 		if (!fs.existsSync(path)) {
-			path = "src/assets/img/uploads/" + req.params.id + ".jpeg";
+			path = "client/assets/img/uploads/" + req.params.id + ".jpeg";
 			if (!fs.existsSync(path)) {
 				res.status(404).send({ error: "Unable to find and delete lineup image!" })
 			}
